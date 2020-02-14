@@ -1,0 +1,119 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Deployment</h3>
+<p>Gradle offers several ways to deploy build artifacts repositories. When deploying signatures for your artifacts to a Maven repository, you will also want to sign the published POM file.</p>
+<h4>Using the Maven-publish Plugin</h4>
+<p>Gradle provides <b>maven-publish</b> plugin by default. It is used to publish the gradle script. Take a look at the following code.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'java'
+ apply plugin: 'maven-publish'
+
+ publishing {
+    publications {
+       mavenJava(MavenPublication) {
+          from components.java
+       }
+    }
+
+    repositories {
+       maven {
+          url "$buildDir/repo"
+       }
+    }
+ }
+
+</pre>
+<p>There are several publish options, when the <b>Java</b> and the <b>maven-publish</b> plugin is applied. Take a look at the following code, it will deploy the project into a remote repository.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'groovy'
+ apply plugin: 'maven-publish'
+
+ group 'workshop'
+ version = '1.0.0'
+
+ publishing {
+    publications {
+       mavenJava(MavenPublication) { 
+          from components.java 
+       }
+    } 
+	
+    repositories {
+       maven {
+           default credentials for a nexus repository manager
+          credentials {
+             username 'admin'
+             password 'admin123'
+          }
+          // url to the releases maven repository
+             url "http://localhost:8081/nexus/content/repositories/releases/"
+       }
+    }
+ }
+
+</pre>
+<h4>Converting a Project from Maven to Gradle</h4>
+<p>There is a special command for converting Apache Maven <b>pom.xml</b> files to Gradle build files, if all used Maven plug-ins are known to this task.</p>
+<p>In this section, the following <b>pom.xml</b> maven configuration will be converted to a Gradle project. Take a look at the following code.</p>
+<pre style="background-color:#f1f1f1">
+
+ &lt;project xmlns = "http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+	
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;com.example.app&lt;/groupId&gt;
+    &lt;artifactId&gt;example-app&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+   
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+	
+    &lt;dependencies&gt;
+       &lt;dependency&gt;
+          &lt;groupId&gt;junit&lt;/groupId&gt;
+          &lt;artifactId&gt;junit&lt;/artifactId&gt;
+ 
+          &lt;version&gt;4.11&lt;/version&gt;
+          &lt;scope&gt;test&lt;/scope&gt;
+       &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+	
+ &lt;/project&gt;
+
+</pre>
+<p>You can use the following command on the command line that results in the following Gradle configuration.</p>
+<pre class="result notranslate">
+ 
+ C:\> gradle init --type pom
+
+</pre>
+<p>The <b>init</b> task depends on the wrapper task so that a Gradle wrapper is created.</p>
+<p>The resulting <b>build.gradle</b> file looks similar to the following.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'java'
+ apply plugin: 'maven'
+
+ group = 'com.example.app'
+ version = '1.0.0-SNAPSHOT'
+
+ description = """"""
+
+ sourceCompatibility = 1.5
+ targetCompatibility = 1.5
+
+ repositories {
+    maven { url "http://repo.maven.apache.org/maven2" }
+ }
+
+ dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.11'
+ }
+ 
+</pre>
+<hr />
+</body>
+</html>

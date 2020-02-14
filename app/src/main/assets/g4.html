@@ -1,0 +1,329 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Tasks</h3>
+<p>Gradle build script describes one or more Projects. Each project is made up of different tasks. A task is a piece of work which a build performs. The task might be compiling some classes, storing class files into separate target folder, creating JAR, generating Javadoc, or publishing some archives to repositories.</p>
+<p>This chapter explains what is task and how to generate and execute a task.</p>
+<h4>Defining Tasks</h4>
+<p>Task is a keyword which is used to define a task into build script. Take a look at the following example which represents a task named <b>hello</b> that prints <b>hello world</b>. Copy and save the following script into a file named <b>build.gradle</b>. This build script defines a task named "hello", which is used to print hello world string.</p>
+<pre style="background-color:#f1f1f1">
+
+ task hello {
+    doLast {
+       println 'hello world'
+    }
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. It executes the above script. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ hello world
+
+</pre>
+<p>You can simplify this hello task by specifying a shortcut (represents a symbol <b>&lt;&lt;</b>) to the <b>doLast</b> statement. If you add this shortcut to the above task <b>hello</b> it will look like the following script.</p>
+<pre style="background-color:#f1f1f1">
+
+ task hello &lt;&lt; {
+    println 'hello world'
+ }
+
+</pre>
+<p>You can execute the above script using <b>gradle -q hello</b> command.</p>
+<p>Here are some variations in defining a task, take a look at it. The following example defines a task <b>hello</b>.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task (hello) &lt;&lt; {
+    println "hello world"
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this, where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ hello world
+
+</pre>
+<p>You can also use strings for the task names. Take a look at the same hello example. Here we will use String as task.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task('hello') &lt;&lt; {
+    println "hello world"
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ hello world
+
+</pre>
+<p>You can also use alternative syntax for defining a task. That is using create() method to defining a task. Take a look at the same hello example.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ tasks.create(name: 'hello') &lt;&lt; {
+    println "hello world"
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ hello world
+
+</pre>
+<h4>Locating Tasks</h4>
+<p>If you want to locate tasks that you defined in the build file, then you have to use respective standard project properties. That means each task is available as a property of the project, using the task name as the property name.</p>
+<p>Take a look at the following code that accesses tasks as properties.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task hello
+
+ println hello.name
+ println project.hello.name
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the  build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ hello
+ hello
+
+</pre>
+<p>You can also use all the properties through the tasks collection.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task hello
+
+ println tasks.hello.name
+ println tasks['hello'].name
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ hello
+ hello
+
+</pre>
+<p>You can access tasks from any project using the task's path. For this you can call the getByPath() method with a task name, or a relative path, or an absolute path.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ project(':projectA') {
+    task hello
+ }
+ task hello
+
+ println tasks.getByPath('hello').path
+ println tasks.getByPath(':hello').path
+ println tasks.getByPath('projectA:hello').path
+ println tasks.getByPath(':projectA:hello').path
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ :hello
+ :hello
+ :projectA:hello
+ :projectA:hello
+
+</pre>
+<h4>Adding Dependencies to Tasks</h4>
+<p>You can make a task dependent on another task, which means when one task is done only then the other task will start. Each task is differentiated with a task name. Collection of task names is referred by its tasks collection. To refer to a task in another project, you should use path of the project as a prefix to the respective task name.</p>
+<p>The following example adds a dependency from taskX to taskY.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task taskX &lt;&lt; {
+    println 'taskX'
+ }
+ task taskY(dependsOn: 'taskX') &lt;&lt; {
+    println "taskY"
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q taskY
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ taskX
+ taskY
+
+</pre>
+<p>The above example is adding dependency on task by using its names. There is another way to achieve task dependency that is define the dependency using a Task object.</p>
+<p>Let us take the same example of taskY being dependent on taskX but we are using task objects instead of task reference names.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task taskY &lt;&lt; {
+    println 'taskY'
+ }
+ task taskX &lt;&lt; {
+   println 'taskX'
+ }
+ taskY.dependsOn taskX
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q taskY
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ taskX
+ taskY
+
+</pre>
+<p>There is another way to add dependency to the task, that is, by using closures. In this case, the task is released through the closure. If you use closure in the build script that should return a single task or collection of task objects. The following example adds a dependency from taskX to all the tasks in the project, whose name starts with <b>'lib'</b>.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task taskX &lt;&lt; {
+    println 'taskX'
+ }
+ taskX.dependsOn {
+    tasks.findAll { 
+       task &rarr; task.name.startsWith('lib') 
+    }
+ }
+ task lib1 &lt;&lt; {
+    println 'lib1'
+ }
+ task lib2 &lt;&lt; {
+    println 'lib2'
+ }
+ task notALib &lt;&lt; {
+    println 'notALib'
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q taskX
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ lib1
+ lib2
+ taskX
+
+</pre>
+<h4>Adding a Description to a Task</h4>
+<p>You can add a description to your task. This description is displayed when executing <b>Gradle tasks</b>. This is possible by using the description keyword.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task copy(type: Copy) {
+    description 'Copies the resource directory to the target directory.'
+    from 'resources'
+    into 'target'
+    include('**/*.txt', '**/*.xml', '**/*.properties')
+    println("description applied")
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q copy
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ description applied
+
+</pre>
+<h4>Skipping Tasks</h4>
+<p>Skipping tasks can be done by passing a predicate closure. This is possible only if method of a task or a closure throwing a <b>StopExecutionException</b> before the actual work of a task is executed.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ task eclipse &lt;&lt; {
+    println 'Hello Eclipse'
+ }
+
+ // #1st approach - closure returning true, if the task should be executed, false if not.
+ eclipse.onlyIf {
+    project.hasProperty('usingEclipse')
+ }
+
+ // #2nd approach - alternatively throw an StopExecutionException() like this
+ eclipse.doFirst {
+    if(!usingEclipse) {
+       throw new StopExecutionException()
+    }
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. You should execute this where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q eclipse
+
+</pre>
+<h4>Task Structure</h4>
+<p>Gradle has different phases, when working with tasks. First of all, there is a configuration phase, where the code, which is specified directly in a task's closure, is executed. The configuration block is executed for every available task and not only for those tasks which are later actually executed.</p>
+<p>After the configuration phase, the execution phase runs the code inside the <b>doFirst</b> or <b>doLast</b> closures of those tasks, which are actually executed.</p>
+<hr />
+</body>
+</html>

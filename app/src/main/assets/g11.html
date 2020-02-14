@@ -1,0 +1,69 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Multi-Project Build</h3>
+<p>Gradle can handle smallest and largest projects easily. Small projects have a single build file and a source tree. It is very easy to digest and understand a project that has been split into smaller, inter-dependent modules. Gradle perfectly supports this scenario that is multi-project build.</p>
+<h4>Structure for Multi-project Build</h4>
+<p>Such builds come in all shapes and sizes, but they do have some common characteristics &minus;</p>
+<ul>
+<li><p>A settings.gradle file in the root or master directory of the project.</p></li>
+<li><p>A build.gradle file in the root or master directory.</p></li>
+<li><p>Child directories that have their own *.gradle build files (some multi-project builds may omit child project build scripts).</p></li>
+</ul>
+<p>For listing all the projects in the build file, you can use the following command.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q projects
+ 
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ ------------------------------------------------------------
+ Root project
+ ------------------------------------------------------------
+
+ Root project 'projectReports'
+ +--- Project ':api' - The shared API for the application
+ \--- Project ':webapp' - The Web application implementation
+
+ To see a list of the tasks of a project, run gradle &lt;project-path&gt;:tasks
+ For example, try running gradle :api:tasks
+
+</pre>
+<p>The report shows the description of each project, if specified. You can use the following command to specify the description. Paste it in the <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+ 
+ description = 'The shared API for the application'
+
+</pre>
+<h4>Specifying a General Build Configuration</h4>
+<p>In a <b>build.gradle</b> file in the root_project, general configurations can be applied to all projects or just to the sub projects.</p>
+<pre style="background-color:#f1f1f1">
+
+ allprojects {
+    group = 'com.example.gradle'
+    version = '0.1.0'
+ }
+
+ subprojects {
+   apply plugin: 'java'
+   apply plugin: 'eclipse'
+ }
+
+</pre>
+<p>This specifies a common <b>com.example.gradle</b> group and the <b>0.1.0</b> version to all projects. The <b>subprojects</b> closure applies common configurations for all sub projects, but not to the root project, like the <b>allprojects</b> closure does.</p>
+<h4>Project Specific Configurations and Dependencies</h4>
+<p>The core <b>ui</b> and <b>util</b> subprojects can also have their own <b>build.gradle</b> file, if they have specific needs, which are not already applied by the general configuration of the root project.</p>
+<p>For instance, the ui project usually has a dependency to the core project. So the ui project needs its own <b>build.gradle</b> file to specify this dependency.</p>
+<pre style="background-color:#f1f1f1">
+
+ dependencies {
+    compile project(':core')
+    compile 'log4j:log4j:1.2.17'
+ }
+
+</pre>
+<p>Project dependencies are specified with the project method.</p>
+<hr />
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent" >
+	<android.support.v7.preference.ListPreference
+		android:title="Select Theme" 
+		android:key="@string/theme_preference_key"
+		android:entries="@array/ThemeList"
+		android:entryValues="@array/ThemeListValue"
+		android:defaultValue="3"
+		android:dialogTitle="Choose A Theme"
+		android:dialogIcon="@drawable/gmd_brightness_2"/>
+	<android.support.v7.preference.ListPreference
+		android:title="Appbar Color" 
+		android:key="@string/primary_color_preference_key"
+		android:entries="@array/ColorNameArray"
+		android:entryValues="@array/ColorPreferenceValueIndexArray"
+		android:defaultValue="3"
+		android:dialogTitle="Choose Appbar Color"
+		android:dialogIcon="@drawable/color_wheel_icon"/>
+	<android.support.v7.preference.ListPreference
+		android:title="Accent Color" 
+		android:key="@string/accent_color_preference_key"
+		android:entries="@array/ColorNameArray"
+		android:entryValues="@array/ColorPreferenceValueIndexArray"
+		android:defaultValue="5"
+		android:dialogTitle="Choose Accent Color"
+		android:dialogIcon="@drawable/color_wheel_icon"/>
+</android.support.v7.preference.PreferenceScreen>

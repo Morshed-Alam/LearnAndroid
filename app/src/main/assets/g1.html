@@ -1,0 +1,32 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Introduction</h3>
+
+<p>Gradle is an open source, advanced general purpose build management system. It is built on ANT, Maven, and lvy repositories. It supports Groovy based Domain Specific Language (DSL) over XML. This tutorial explains how you can use Gradle as a build automation tool for Java as well as Groovy projects.</p>
+
+<p>ANT and Maven shared considerable success in the Java marketplace. ANT was the first build tool released in 2000 and it is developed based on procedural programming idea. Later, it was improved with an ability to accept plug-ins and dependency management over the network with the help on Apache-Ivy. The main drawback was XML as a format to write build scripts. XML being hierarchical is not good for procedural programming and tends to become unmanageably big.</p>
+<p>Maven was introduced in 2004. It comes with a lot of improvement than ANT. It changes its structure and it continues using XML for writing build specifications. Maven relies on the conventions and is able to download the dependencies over the network. The main benefit of Maven is its life cycle. While following the same life cycle for multiple projects continuously, this comes a cost of flexibility. Maven also faces some problems in dependency management. It does not handle well conflicts between versions of the same library, and complex customized build scripts are actually harder to write in Maven than in ANT.</p>
+<p>Finally, Gradle came into the picture in 2012. Gradle carries some efficient features from both the tools.</p>
+<h4>Features of Gradle</h4>
+<p>Following is the list of features that Gradle provides.</p>
+<ul>
+<li><p><b>Declarative builds and build-by-convention</b> &minus; Gradle is available with separate Domain Specific Language (DSL) based on Groovy language. Gradle provides declarative language elements. The elements also provide build-by-convention support for Java, Groovy, OSGi, Web and Scala.</p></li>
+<li><p><b>Language for dependency based programming</b> &minus; The declarative language lies on top of a general purpose task graph, which you can fully leverage in your build.</p></li>
+<li><p><b>Structure your build</b> &minus; Gradle allows you to apply common design principles to your build. It gives you a perfect structure for build, so that you can design well-structured and easily maintained, comprehensible build.</p></li>
+<li><p><b>Deep API</b> &minus; Using this API, you can monitor and customize its configuration and execution behavior to its core.</p></li>
+<li><p><b>Gradle scales</b> &minus; Gradle can easily increase productivity, from simple and single project builds to huge enterprise multi-project builds.</p></li>
+<li><p><b>Multi-project builds</b> &minus; Gradle supports multi-project builds and also partial builds. If you build a subproject, Gradle takes care of building all the subprojects that it depends on.</p></li>
+<li><p><b>Different ways to manage your builds</b> &minus; Gradle supports different strategies to manage your dependencies.</p></li>
+<li><p><b>First build integration tool</b> &minus; Gradle completely supports ANT tasks, Maven and lvy repository infrastructure for publishing and retrieving dependencies. It also provides a converter for turning a Maven pom.xml to Gradle script.</p></li>
+<li><p><b>Ease of migration</b> &minus; Gradle can easily adapt to any structure you have. Therefore, you can always develop your Gradle build in the same branch where you can build</p></li>
+<li><p><b>Gradle Wrapper</b> &minus; Gradle Wrapper allows you to execute Gradle builds on machines where Gradle is not installed. This is useful for continuous integration of servers.</p></li>
+<li><p><b>Free open source</b> &minus; Gradle is an open source project, and licensed under the Apache Software License (ASL).</p></li>
+<li><p><b>Groovy</b> &minus; Gradle's build script is written in Groovy. The whole design of Gradle is oriented towards being used as a language, not as a rigid framework. Groovy allows you to write your own script with some abstractions. The entire Gradle API is designed in Groovy language.</p></li>
+</ul>
+<h4>Why Groovy?</h4>
+<p>The complete Gradle API is designed using Groovy language. This is an advantage of an internal DSL over XML. Gradle is general purpose build tool at its core; its main focus is Java projects. In such projects, the team members will be very familiar with Java and it is better that a build should be as transparent as possible to all team members.</p>
+<p>Languages like Python, Groovy or Ruby are better for build framework. Why Groovy was chosen is, because it offers by far the greatest transparency for people using Java. The base syntax of Groovy is same as Java. Groovy provides much more on top of that.</p>
+<hr />
+<hr />
+</body>
+</html>

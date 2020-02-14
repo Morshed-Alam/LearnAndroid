@@ -1,0 +1,221 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Plugins</h3>
+<p>A plugin is nothing but a set of tasks, almost all useful tasks such as compiling tasks, setting domain objects, setting up source files, etc. are handled by plugins. Applying a plugin to a project, allows the plugin to extend the project"s capabilities. Plugins can &minus;</p>
+<ul>
+<li>Extend the basic Gradle model (e.g. add new DSL elements that can be configured).</li>
+<li>Configure the project according to conversions (e.g. add new tasks or configure sensible defaults).</li>
+<li>Apply specific configuration (e.g. add organizational repositories or enforce standards).</li>
+</ul>
+<h4>Types of Plugins</h4>
+<p>There are two types of plugins in Gradle, script plugins and binary plugins. Script plugins is an additional build script that gives a declarative approach to manipulating the build. This is typically used within a build. Binary plugins are the classes that implement the plugin interface and adopt a programmatic approach to manipulating the build. Binary plugins can reside with a build script, with the project hierarchy or externally in a plugin JAR.</p>
+<h4>Applying Plugins</h4>
+<p><b>Project.apply()</b> API method is used to apply the particular plugin. You can use the same plugin for multiple times. There are two types of plugins one is script plugin and second is binary plugin.</p>
+<h3>Script Plugins</h3>
+<p>Script plugins can be applied from a script on the local filesystem or at a remote location. Filesystem locations are relative to the project directory, while remote script locations specifies HTTP URL. Take a look at the following code snippet. It is used to apply the <b>other.gradle</b> plugin to the build script. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+ 
+ apply from: 'other.gradle'
+
+</pre>
+<h3>Binary Plugins</h3>
+<p>Each plugin is identified by a plugin id. Some core plugins use short names to apply it and some community plugins use fully qualified name for plugin id. Sometimes it allows to specify a class of plugin.</p>
+<p>Take a look at the following code snippet. It shows how to apply Java plugin by using its type. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: JavaPlugin
+
+</pre>
+<p>Take a look at the following code for applying core plugin using the short name. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ plugins {
+    id 'java'
+ }
+
+</pre>
+<p>Take a look at the following code for applying community plugin using the short name. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ plugins {
+    id "com.jfrog.bintray" version "0.4.1"
+ }
+
+</pre>
+<h4>Writing Custom Plugins</h4>
+<p>While creating a custom plugin, you need to write an implementation of plugin. Gradle instantiates the plugin and calls the plugin instance using Plugin.apply() method. The following sample contains a greeting plugin, which adds a hello task to the project. Take a look at the following code. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+apply plugin: GreetingPlugin
+
+class GreetingPlugin implements Plugin&lt;Project&gt; {
+   void apply(Project project) {
+      project.task('hello') &lt;&lt; {
+         println "Hello from the GreetingPlugin"
+      }
+   }
+}
+
+</pre>
+<p>Use the following code to execute the above script.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ Hello from the GreetingPlugin
+
+</pre>
+<h4>Getting Input from the Build</h4>
+<p>Most of the plugins need the configuration support from the build script. The Gradle project has an associated "ExtensionContainer" object that helps to track all the setting and properties being passed to plugins.</p>
+<p>Let's add a simple extension object to the project. Here, we add a greeting extension object to the project, which allows you to configure the greeting. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: GreetingPlugin
+
+ greeting.message = 'Hi from Gradle'
+
+ class GreetingPlugin implements Plugin&lt;Project&gt; {
+    void apply(Project project) {
+       // Add the 'greeting' extension object
+       project.extensions.create("greeting", GreetingPluginExtension)	 	
+
+       // Add a task that uses the configuration
+       project.task('hello') &lt;&lt; {
+       println project.greeting.message
+       }
+    }
+ }
+
+ class GreetingPluginExtension {
+    def String message = 'Hello from GreetingPlugin'
+ }
+
+</pre>
+<p>Use the following code to execute the above script.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ Hi from Gradle
+
+</pre>
+<p>In this example, GreetingPlugin is a plain old Groovy object with a field called "message". The extension object is added to the plugin list with the name greeting. This object then becomes available as a project property with the same name as the extension object.</p>
+<p>Gradle adds a configuration closure for each extension object, so you can group the settings together. Take a look at the following code. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: GreetingPlugin
+
+ greeting {
+    message = 'Hi'
+    greeter = 'Gradle'
+ }
+
+ class GreetingPlugin implements Plugin&lt;Project&gt; {
+    void apply(Project project) {
+       project.extensions.create("greeting", GreetingPluginExtension)
+	 	
+       project.task('hello') &lt;&lt; {
+          println "${project.greeting.message} from ${project.greeting.greeter}"
+       } 
+    }
+ }
+
+ class GreetingPluginExtension {
+    String message
+    String greeter
+ }
+
+</pre>
+<p>Use the following code to execute the above script.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle -q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ Hello from Gradle
+
+</pre>
+<h4>Standard Gradle Plugins</h4>
+<p>There are different plugins which are included in the Gradle distribution.</p>
+<h3>Language Plugins</h3>
+<p>These plugins add support for various languages which can be compiled and executed in the JVM.</p>
+<table border="1">
+<tr>
+<th style="text-align:center;">Plugin Id</th>
+<th style="text-align:center;">Automatically Applies</th>
+<th style="text-align:center;">Description</th>
+</tr>
+<tr>
+<td>java</td>
+<td>java-base</td>
+<td>Adds Java compilation, testing, and bundling capabilities to a project. It serves as the basis for many of the other Gradle plugins.</td>
+</tr>
+<tr>
+<td>groovy</td>
+<td>java,groovy-base</td>
+<td>Adds support for building Groovy projects.</td>
+</tr>
+<tr>
+<td>scala</td>
+<td>java,scala-base</td>
+<td>Adds support for building Scala projects.</td>
+</tr>
+<tr>
+<td>antlr</td>
+<td>Java</td>
+<td>Adds support for generating parsers using Antlr.</td>
+</tr>
+</table>
+<h3>Incubating Language Plugins</h3>
+<p>These plugins add support for various languages.</p>
+<table border="1">
+<tr>
+<th style="text-align:center;">Plugin Id</th>
+<th>Automatically Applies</th>
+<th style="text-align:center;">Description</th>
+</tr>
+<tr>
+<td style="text-align:center;">assembler</td>
+<td style="text-align:center;">-</td>
+<td>Adds native assembly language capabilities to a project.</td>
+</tr>
+<tr>
+<td style="text-align:center;">c</td>
+<td style="text-align:center;">-</td>
+<td>Adds C source compilation capabilities to a project.</td>
+</tr>
+<tr>
+<td style="text-align:center;">cpp</td>
+<td style="text-align:center;">-</td>
+<td>Adds C++ source compilation capabilities to a project.</td>
+</tr>
+<tr>
+<td style="text-align:center;">objective-c</td>
+<td style="text-align:center;">-</td>
+<td>Adds Objective-C source compilation capabilities to a project.</td>
+</tr>
+<tr>
+<td style="text-align:center;">objective-cpp</td>
+<td style="text-align:center;">-</td>
+<td>Adds Objective-C++ source compilation capabilities to a project.</td>
+</tr>
+<tr>
+<td>windows-resources</td>
+<td style="text-align:center;">-</td>
+<td>Adds support for including Windows resources in native binaries.</td>
+</tr>
+</table>
+<hr />
+</body>
+</html>

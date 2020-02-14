@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_menu">
+
+    <group android:checkableBehavior="single">
+    
+    <item
+        android:id="@+id/item_home"
+        android:title="Home"
+        android:icon="@drawable/cmd_home_outline" />
+
+    <item 
+		android:id="@+id/item_Send_Feedback" 
+		android:title="@string/action_feedback"
+		 android:icon="@drawable/gmd_send"/>
+    <item 
+		android:id="@+id/item_share" 
+		android:title="@string/action_share" 
+		android:icon="@drawable/fou_share"/>
+	<item
+		android:id="@+id/item_settings"
+		android:title="@string/action_settings" 
+		android:icon="@drawable/gmd_settings"/>
+		
+    <item android:id="@+id/item_help" 
+		android:title="@string/action_help"
+		android:icon="@drawable/ent_help"/>
+		
+		   <item android:id="@+id/item_about" 
+		android:title="About"
+		android:icon="@drawable/gmd_info_outline"/>
+
+    </group>
+
+</menu>

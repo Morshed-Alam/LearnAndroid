@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="ThemeList">
+		<item>Light Theme</item>
+		<item>Dark Theme</item>
+		<item>Select by Battery Saver</item>
+		<item>System Default</item>
+	</string-array>
+	<string-array name="ThemeListValue">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+	<string-array name="ColorNameArray">
+	   <item>White</item>
+	   <item>Black</item>
+		<item>Red</item>
+		<item>Pink</item>
+		<item>Purple</item>
+		<item>Deep Purple</item>
+		<item>Indigo</item>
+		<item>Blue</item>
+		<item>Light Blue</item>
+		<item>Cyan</item>
+		<item>Teal</item>
+		<item>Green</item>
+		<item>Light Green</item>
+		<item>Lime</item>
+		<item>Yellow</item>
+		<item>Amber</item>
+		<item>Orange</item>
+		<item>Deep Orange</item>
+		<item>Brown</item>
+		<item>Gray</item>
+		<item>Blue Gray</item>
+	</string-array>
+	<string-array name="ColorPrimaryArray">
+	    <item>#FFFFFF</item>
+	    <item>#121212</item>
+	   	<item>#FF1744</item>
+        <item>#F50057</item>
+        <item>#D500F9</item>
+        <item>#651FFF</item>
+        <item>#3D5AFE</item>
+        <item>#2979FF</item>
+        <item>#00B0FF</item>
+        <item>#00E5FF</item>
+        <item>#1DE9B6</item>
+        <item>#00E676</item>
+        <item>#76FF03</item>
+        <item>#C6FF00</item>
+        <item>#FFEA00</item>
+        <item>#FFC400</item>
+		<item>#FF9100</item>
+		<item>#FF3D00</item>
+		<item>#795548</item>
+		<item>#9e9e9e</item>
+		<item>#607D8B</item>
+	</string-array>
+	<string-array name="ColorPrimaryDarkArray">
+	   <item>#FFFFFF</item>
+	   <item>#121212</item>
+		<item>#D50000</item>
+		<item>#C51162</item>
+		<item>#AA00FF</item>
+		<item>#6200EA</item>
+		<item>#304FFE</item>
+		<item>#2962FF</item>
+		<item>#0091EA</item>
+		<item>#00838F</item>
+		<item>#00BFA5</item>
+		<item>#00C853</item>
+		<item>#64DD17</item>
+		<item>#AEEA00</item>
+		<item>#FFD600</item>
+		<item>#FFAB00</item>
+		<item>#FF6D00</item>
+		<item>#DD2C00</item>
+		<item>#5D4037</item>
+		<item>#616161</item>
+		<item>#455A64</item>
+	</string-array>
+	<string-array name="ColorAccentArray">
+	   <item>#FFFFFF</item>
+	   <item>#121212</item>
+		<item>#FF5252</item>
+		<item>#FF4081</item>
+		<item>#F040FB</item>
+		<item>#7C4DFF</item>
+		<item>#536DFE</item>
+		<item>#448AFF</item>
+		<item>#40C4FF</item>
+		<item>#18FFFF</item>
+		<item>#64FFDA</item>
+		<item>#69F0AE</item>
+		<item>#B2FF59</item>
+		<item>#EEFF41</item>
+		<item>#FFFF00</item>
+		<item>#FFD740</item>
+		<item>#FFAB40</item>
+		<item>#FF6E40</item>
+		<item>#BCAAA4</item>
+		<item>#eeeeee</item>
+		<item>#B0BEC5</item>
+	</string-array>
+	<string-array name="ColorPreferenceValueIndexArray">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+		<item>9</item>
+		<item>10</item>
+		<item>11</item>
+		<item>12</item>
+		<item>13</item>
+		<item>14</item>
+		<item>15</item>
+		<item>16</item>
+		<item>17</item>
+		<item>18</item>
+		<item>19</item>
+		<item>20</item>
+	</string-array>
+	<string name="ColorPrimaryDefaultValueIndex">5</string>
+	<string name="ColorAccentDefaultValueIndex">15</string>
+</resources>

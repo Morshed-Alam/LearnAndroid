@@ -1,0 +1,56 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Dependency Management</h3>
+<p>Dependency configuration is nothing but defines a set of dependencies. You can use this feature to declare external dependencies, which you want to download from the web. This defines the following different standard configurations.</p>
+<ul>
+<li><p><b>Compile</b> &minus; The dependencies required to compile the production source of the project.</p></li>
+<li><p><b>Runtime</b> &minus; The dependencies required by the production classes at runtime. By default, also includes the compile time dependencies.</p></li>
+<li><p><b>Test Compile</b> &minus; The dependencies required to compile the test source of the project. By default, it includes compiled production classes and the compile time dependencies.</p></li>
+<li><p><b>Test Runtime</b> &minus; The dependencies required to run the tests. By default, it includes runtime and test compile dependencies.</p></li>
+</ul>
+<h4>External Dependencies</h4>
+<p>External dependencies is a type of dependency. This is a dependency on some files that is built outside the current build, and is stored in a repository of some kind, such as Maven central, corporate Maven or lvy repository, or a directory in the local file system.</p>
+<p>The following code snippet is to define the external dependency. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ dependencies {
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '3.6.7.Final'
+ }
+
+</pre>
+<p>An external dependency is declaring external dependencies and the shortcut form looks like "group: name: version".</p>
+<h4>Repositories</h4>
+<p>While adding external dependencies. Gradle looks for them in a repository. A repository is just a collection of files, organized by group, name and version. By default, Gradle does not define any repositories. We have to define at least one repository explicitly. The following code snippet defines how to define maven repository. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+ 
+ repositories {
+    mavenCentral()
+ }
+
+</pre>
+<p>Following code is to define remote maven. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ repositories {
+    maven {
+       url "http://repo.mycompany.com/maven2"
+    }
+ }
+</pre>
+<h4>Publishing Artifacts</h4>
+<p>Dependency configurations are also used to publish files. These published files are called artifacts. Usually, we use plug-ins to define artifacts. However, you do need to tell Gradle where to publish the artifacts. You can achieve this by attaching repositories to the upload archives task. Take a look at the following syntax for publishing Maven repository. While executing, Gradle will generate and upload a Pom.xml as per the project requirements. Use this code in <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+ 
+ apply plugin: 'maven'
+
+ uploadArchives {
+    repositories {
+       mavenDeployer {
+          repository(url: "file://localhost/tmp/myRepo/")
+       }
+    }
+ }
+
+</pre>
+</body>
+</html>

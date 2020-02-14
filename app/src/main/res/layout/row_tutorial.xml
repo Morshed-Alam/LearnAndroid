@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@color/colorBackground"
+	android:layout_width="match_parent" 
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true">
+	<include
+		android:id="@+id/webtoolbar"
+		layout="@layout/toolbar"
+		android:layout_alignParentTop="true"/>
+	<WebView android:id="@+id/webView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" 
+		android:layout_below="@id/webtoolbar"
+		android:background="@color/colorBackground"/>
+	<com.google.android.gms.ads.AdView
+		xmlns:ads="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/WebadView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		ads:adSize="BANNER"
+		ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+</RelativeLayout>

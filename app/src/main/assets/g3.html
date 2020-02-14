@@ -1,0 +1,395 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Build Script</h3>
+
+<p>Gradle builds a script file for handling two things; one is <b>projects</b> and another one is <b>tasks</b>. Every Gradle build represents one or more projects. A project represents a library JAR or a web application or it might represent a ZIP that assembled from the JARs produced by other projects. In simple words, a project is made up of different tasks. A task means a piece of work which a build performs. A task might be compiling some classes, creating a JAR, generating Javadoc, or publishing some archives to a repository.</p>
+<p>Gradle uses <b>Groovy language </b>for writing scripts.</p>
+<h4>Writing Build Script</h4>
+<p>Gradle provides a Domain Specific Language (DSL), for describing builds. This uses the Groovy language to make it easier to describe a build. Each build script of Gradle is encoded using UTF-8, saved offline and named as build.gradle.</p>
+<h3>build.gradle</h3>
+<p>We are describing about tasks and projects by using a Groovy script. You can run a Gradle build using the Gradle command. This command looks for a file called <b>build.gradle</b>. Take a look at the following example which represents a small script that prints <b>hello world</b>. Copy and save the following script into a file named <b>build.gradle</b>. This build script defines a task name hello, which is used to print hello world string.</p>
+<pre style="background-color:#f1f1f1">
+
+ task hello {
+  	 doLast {
+       println 'hello world'
+	 }
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. It executes the above script. You should execute this, where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ C:\> gradle –q hello
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+ hello world
+
+</pre>
+<p>If you think task works similar to ANT’s target, then that’s right - Gradle task is equivalent to ANT target.</p>
+<p>You can simplify this hello task by specifying a shortcut (represents a symbol <b>&lt;&lt;</b>) to the <b>doLast</b> statement. If you add this shortcut to the above task <b>hello</b> it will look like the following script.</p>
+<pre class="result notranslate">
+ task hello &lt;&lt; {
+    println 'hello world'
+ }
+
+</pre>
+<p>You can execute the above script using <b>gradle –q hello</b> command.</p>
+<p>The Gradle script mainly uses two real Objects; one is Project Object and another one is Script Object.</p>
+<p><b>Project Object</b> &minus; Each script describes about one or multiple projects. While in the execution, this script configures the Project Object. You can call some methods and use property in your build script which are delegated to the Project Object.</p>
+<p><b>Script Object</b> &minus; Gradle takes script code into classes, which implements Script Interface and then executes. This means that of all the properties and methods declared by the script interface are available in your script.</p>
+<p>The following table defines the list of <b>standard project properties</b>. All these properties are available in your build script.</p>
+<table border="1">
+<tr>
+<th style="text-align:center;">Sr. No.</th>
+<th style="text-align:center;">Name</th>
+<th style="text-align:center;">Type</th>
+<th style="text-align:center;">Default Value</th>
+</tr>
+<tr>
+<td>1</td>
+<td>project</td>
+<td>Project</td>
+<td>The Project instance</td>
+</tr>
+<tr>
+<td>2</td>
+<td>name</td>
+<td>String</td>
+<td>The name of the project directory.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>path</td>
+<td>String</td>
+<td>The absolute path of the project.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>description</td>
+<td>String</td>
+<td>A description for the project.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>projectDir</td>
+<td>File</td>
+<td>The directory containing the build script.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>buildDir</td>
+<td>File</td>
+<td>projectDir/build</td>
+</tr>
+<tr>
+<td>7</td>
+<td>group</td>
+<td>Object</td>
+<td>Unspecified</td>
+</tr>
+<tr>
+<td>8</td>
+<td>version</td>
+<td>Object</td>
+<td>Unspecified</td>
+</tr>
+<tr>
+<td>9</td>
+<td>ant</td>
+<td>AntBuilder</td>
+<td>An AntBuilder instance</td>
+</tr>
+</table>
+<h4>How Gradle Uses Groovy</h4>
+<p>Gradle build scripts use the full length Groovy API. As a startup, take a look at the following examples. The following example explains about converting a string to upper case.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre  style="background-color:#f1f1f1">
+ task upper &lt;&lt; {
+    String expString = 'HELLO world'
+    println "Original: " + expString
+  
+  println "Upper case: " + expString.toUpperCase()
+}
+</pre>
+<p>Execute the following command in the command prompt. It executes the above given script. You should execute this, where the build.gradle file is stored.</p>
+<pre  style="background-color:#f1f1f1">
+ C:\> gradle –q upper
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre  style="background-color:#f1f1f1">
+ Original: HELLO world 
+ Upper case: HELLO WORLD
+
+</pre>
+<p>The following example explains about printing the value of an implicit parameter ($it) for 4 times.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre  style="background-color:#f1f1f1">
+ task count &lt;&lt; {
+    4.times { 
+       print "$it " 
+    }
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. It executes the above given script. You should execute this, where the build.gradle file is stored.</p>
+<pre style="background-color:#f1f1f1">
+
+ $ gradle –q count
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre  style="background-color:#f1f1f1">
+ 0 1 2 3
+
+</pre>
+<p>Groovy language provides plenty of features. Following are some  important features.</p>
+<h3>Groovy JDK Methods</h3>
+<p>Groovy adds lots of useful methods to the standard Java classes. For example, Iterable API from JDK implements an <b>each()</b> method which iterates over the elements of the Iterable Interface.</p>
+<p>Copy and save the following code into <b>build.gradle</b> file.</p>
+<pre  style="background-color:#f1f1f1">
+ task groovyJDK &lt;&lt; {
+    String myName = "Marc";
+    myName.each() { 
+       println "${it}" 
+    };
+ }
+
+</pre>
+<p>Execute the following command in the command prompt. It executes the above given script. You should execute this, where the build.gradle file is stored.</p>
+<pre  style="background-color:#f1f1f1">
+ C:\> gradle –q groovyJDK
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre  style="background-color:#f1f1f1">
+ M
+ a
+ r 
+ c
+
+</pre>
+<h3>Property Accessors</h3>
+<p>You can automatically accesses appropriate getter and setter methods of a particular property by specifying its reference.</p>
+<p>The following snippet defines the syntaxes of getter and setter methods of a property <b>buildDir</b>.</p>
+<pre class="result notranslate">
+ // Using a getter method
+ println project.buildDir
+ println getProject().getBuildDir()
+
+ // Using a setter method
+ project.buildDir = 'target'
+ getProject().setBuildDir('target')
+
+</pre>
+<h3>Optional Parentheses on Method Calls</h3>
+<p>Groovy contains a special feature in methods calling that is the parentheses are optional for method calling. This feature applies to Gradle scripting as well.</p>
+<p>Take a look at the following syntax. That defines a method calling <b>systemProperty</b> of <b>test</b> object.</p>
+<pre class="result notranslate">
+ test.systemProperty 'some.prop', 'value'
+ test.systemProperty('some.prop', 'value')
+
+</pre>
+<h3>Closure as the Last Parameter of the Method</h3>
+<p>Gradle DSL uses closures in many places. Where the last parameter of a method is a closure, you can place the closure after the method call.</p>
+<p>The following snippet defines the syntaxes Closures use as repositories() method parameters.</p>
+<pre class="result notranslate">
+ repositories {
+    println "in a closure"
+ }
+ repositories() { 
+   println "in a closure" 
+ }
+ repositories({ println "in a closure" })
+
+</pre>
+<h4>Default  imports for Gradle Scripts</h4>
+<p>Gradle automatically adds a set of  import statements to the Gradle scripts. The following list shows you the default  import packages to the Gradle script.</p>
+<label>Given below are the default  import packages to the Gradle script</label>
+
+<pre style="background-color:#f1f1f1">
+
+ import org.gradle.*
+ import org.gradle.api.*
+ import org.gradle.api.artifacts.* 
+ import org.gradle.api.artifacts.cache.*
+ import org.gradle.api.artifacts.component.*
+ import org.gradle.api.artifacts.dsl.*
+ import org.gradle.api.artifacts.ivy.*
+ import org.gradle.api.artifacts.maven.*
+ import org.gradle.api.artifacts.query.*
+ import org.gradle.api.artifacts.repositories.*
+ import org.gradle.api.artifacts.result.*
+ import org.gradle.api.component.*
+ import org.gradle.api.credentials.*
+ import org.gradle.api.distribution.*
+ import org.gradle.api.distribution.plugins.*
+ import org.gradle.api.dsl.*
+ import org.gradle.api.execution.*
+ import org.gradle.api.file.*
+ import org.gradle.api.initialization.*
+ import org.gradle.api.initialization.dsl.*
+ import org.gradle.api.invocation.*
+ import org.gradle.api.java.archives.*
+ import org.gradle.api.logging.*
+ import org.gradle.api.plugins.*
+ import org.gradle.api.plugins.announce.*
+ import org.gradle.api.plugins.antlr.*
+ import org.gradle.api.plugins.buildcomparison.gradle.*
+ import org.gradle.api.plugins.jetty.*
+ import org.gradle.api.plugins.osgi.*
+ import org.gradle.api.plugins.quality.*
+ import org.gradle.api.plugins.scala.*
+ import org.gradle.api.plugins.sonar.*
+ import org.gradle.api.plugins.sonar.model.*
+ import org.gradle.api.publish.*
+ import org.gradle.api.publish.ivy.*
+ import org.gradle.api.publish.ivy.plugins.*
+ import org.gradle.api.publish.ivy.tasks.*
+ import org.gradle.api.publish.maven.*
+ import org.gradle.api.publish.maven.plugins.*
+ import org.gradle.api.publish.maven.tasks.*
+ import org.gradle.api.publish.plugins.*
+ import org.gradle.api.reporting.*
+ import org.gradle.api.reporting.components.*
+ import org.gradle.api.reporting.dependencies.*
+ import org.gradle.api.reporting.model.*
+ import org.gradle.api.reporting.plugins.*
+ import org.gradle.api.resources.*
+ import org.gradle.api.specs.*
+ import org.gradle.api.tasks.*
+ import org.gradle.api.tasks.ant.*
+ import org.gradle.api.tasks.application.*
+ import org.gradle.api.tasks.bundling.*
+ import org.gradle.api.tasks.compile.*
+ import org.gradle.api.tasks.diagnostics.*
+ import org.gradle.api.tasks.incremental.*
+ import org.gradle.api.tasks.javadoc.*
+ import org.gradle.api.tasks.scala.*
+ import org.gradle.api.tasks.testing.*
+ import org.gradle.api.tasks.testing.junit.*
+ import org.gradle.api.tasks.testing.testng.*
+ import org.gradle.api.tasks.util.*
+ import org.gradle.api.tasks.wrapper.*
+ import org.gradle.authentication.*
+ import org.gradle.authentication.http.*
+ import org.gradle.buildinit.plugins.*
+ import org.gradle.buildinit.tasks.*
+ import org.gradle.external.javadoc.*
+ import org.gradle.ide.cdt.*
+ import org.gradle.ide.cdt.tasks.*
+ import org.gradle.ide.visualstudio.*
+ import org.gradle.ide.visualstudio.plugins.*
+ import org.gradle.ide.visualstudio.tasks.*
+ import org.gradle.ivy.*
+ import org.gradle.jvm.*
+ import org.gradle.jvm.application.scripts.*
+ import org.gradle.jvm.application.tasks.*
+ import org.gradle.jvm.platform.*
+ import org.gradle.jvm.plugins.*
+ import org.gradle.jvm.tasks.*
+ import org.gradle.jvm.tasks.api.*
+ import org.gradle.jvm.test.*
+ import org.gradle.jvm.toolchain.*
+ import org.gradle.language.assembler.*
+ import org.gradle.language.assembler.plugins.*
+ import org.gradle.language.assembler.tasks.*
+ import org.gradle.language.base.*
+ import org.gradle.language.base.artifact.*
+ import org.gradle.language.base.plugins.*
+ import org.gradle.language.base.sources.*
+ import org.gradle.language.c.*
+ import org.gradle.language.c.plugins.*
+ import org.gradle.language.c.tasks.*
+ import org.gradle.language.coffeescript.*
+ import org.gradle.language.cpp.*
+ import org.gradle.language.cpp.plugins.*
+ import org.gradle.language.cpp.tasks.*
+ import org.gradle.language.java.*
+ import org.gradle.language.java.artifact.*
+ import org.gradle.language.java.plugins.*
+ import org.gradle.language.java.tasks.*
+ import org.gradle.language.javascript.*
+ import org.gradle.language.jvm.*
+ import org.gradle.language.jvm.plugins.*
+ import org.gradle.language.jvm.tasks.*
+ import org.gradle.language.nativeplatform.*
+ import org.gradle.language.nativeplatform.tasks.*
+ import org.gradle.language.objectivec.*
+ import org.gradle.language.objectivec.plugins.*
+ import org.gradle.language.objectivec.tasks.*
+ import org.gradle.language.objectivecpp.*
+ import org.gradle.language.objectivecpp.plugins.*
+ import org.gradle.language.objectivecpp.tasks.*
+ import org.gradle.language.rc.*
+ import org.gradle.language.rc.plugins.*
+ import org.gradle.language.rc.tasks.*
+ import org.gradle.language.routes.*
+ import org.gradle.language.scala.*
+ import org.gradle.language.scala.plugins.*
+ import org.gradle.language.scala.tasks.*
+ import org.gradle.language.scala.toolchain.*
+ import org.gradle.language.twirl.*
+ import org.gradle.maven.*
+ import org.gradle.model.*
+ import org.gradle.nativeplatform.*
+ import org.gradle.nativeplatform.platform.*
+ import org.gradle.nativeplatform.plugins.*
+ import org.gradle.nativeplatform.tasks.*
+ import org.gradle.nativeplatform.test.*
+ import org.gradle.nativeplatform.test.cunit.*
+ import org.gradle.nativeplatform.test.cunit.plugins.*
+ import org.gradle.nativeplatform.test.cunit.tasks.*
+ import org.gradle.nativeplatform.test.googletest.*
+ import org.gradle.nativeplatform.test.googletest.plugins.*
+ import org.gradle.nativeplatform.test.plugins.*
+ import org.gradle.nativeplatform.test.tasks.*
+ import org.gradle.nativeplatform.toolchain.*
+ import org.gradle.nativeplatform.toolchain.plugins.*
+ import org.gradle.platform.base.*
+ import org.gradle.platform.base.binary
+ import org.gradle.platform.base.component.*
+ import org.gradle.platform.base.plugins.*
+ import org.gradle.platform.base.test.*
+ import org.gradle.play.*
+ import org.gradle.play.distribution.*
+ import org.gradle.play.platform.*
+ import org.gradle.play.plugins.*
+ import org.gradle.play.tasks.*
+ import org.gradle.play.toolchain.*
+ import org.gradle.plugin.use.*
+ import org.gradle.plugins.ear.*
+ import org.gradle.plugins.ear.descriptor.*
+ import org.gradle.plugins.ide.api.*
+ import org.gradle.plugins.ide.eclipse.*
+ import org.gradle.plugins.ide.idea.*
+ import org.gradle.plugins.javascript.base.*
+ import org.gradle.plugins.javascript.coffeescript.*
+ import org.gradle.plugins.javascript.envjs.*
+ import org.gradle.plugins.javascript.envjs.browser.*
+ import org.gradle.plugins.javascript.envjs.http.*
+ import org.gradle.plugins.javascript.envjs.http.simple.*
+ import org.gradle.plugins.javascript.jshint.*
+ import org.gradle.plugins.javascript.rhino.*
+ import org.gradle.plugins.javascript.rhino.worker.*
+ import org.gradle.plugins.signing.*
+ import org.gradle.plugins.signing.signatory.*
+ import org.gradle.plugins.signing.signatory.pgp.*
+ import org.gradle.plugins.signing.type.*
+ import org.gradle.plugins.signing.type.pgp.*
+ import org.gradle.process.*
+ import org.gradle.sonar.runner.*
+ import org.gradle.sonar.runner.plugins.*
+ import org.gradle.sonar.runner.tasks.*
+ import org.gradle.testing.jacoco.plugins.*
+ import org.gradle.testing.jacoco.tasks.*
+ import org.gradle.testkit.runner.*
+ import org.gradle.util.*
+
+</pre>
+</body>
+</html>

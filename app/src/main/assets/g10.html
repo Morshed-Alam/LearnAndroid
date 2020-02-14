@@ -1,0 +1,96 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Testing</h3>
+<p>The test task automatically detects and executes all unit tests in the test source set. It also generates a report once test execution is complete. JUnit and TestNG are the supported APIs.</p>
+<p>The test task provides a <b>Test.getDebug()</b> method that can be set to launch to make the JVM wait for a debugger. Before proceeding to the execution, it sets the debugger post to <b>5005</b>.</p>
+<h4>Test Detection</h4>
+<p>The <b>Test Task</b> detects which classes are test classes by inspecting the compiled test classes. By default it scans all .class files. You can set custom includes / excludes, only those classes will be scanned. Depending on the test framework used (JUnit / TestNG), the test class detection uses different criteria.</p>
+<p>When using JUnit, we scan for both JUnit 3 and 4 test classes. If any of the following criteria match, the class is considered to be a JUnit test class &minus;</p>
+<ul>
+<li>Class or a super class extends TestCase or GroovyTestCase</li>
+<li>Class or a super class is annotated with @RunWith</li>
+<li>Class or a super class contain a method annotated with @Test</li>
+<li>When using TestNG, we scan for methods annotated with @Test</li>
+</ul>
+<p><b>Note</b> &minus; The abstract classes are not executed. Gradle also scans the inheritance tree into jar files on the test classpath.</p>
+<p>If you don't want to use test class detection, you can disable it by setting <b>scanForTestClasses</b> to false.</p>
+<h4>Test Grouping</h4>
+<p>JUnit and TestNG allows sophisticated groupings of test methods. For grouping, JUnit test classes and methods JUnit 4.8 introduces the concept of categories. The test task allows the specification of the JUnit categories you want to include and exclude.</p>
+<p>You can use the following code snippet in build.gradle file to group test methods.</p>
+<pre  style="background-color:#f1f1f1">
+
+ test {
+    useJUnit {
+       includeCategories 'org.gradle.junit.CategoryA'
+       excludeCategories 'org.gradle.junit.CategoryB'
+    }
+ }
+
+</pre>
+<h4>Include and Exclude Particular Tests</h4>
+<p>The <b>Test</b> class has an <b>include</b> and <b>exclude</b> method. These methods can be used to specify, which tests should actually be run.</p>
+<p>Run only the included tests &minus;</p>
+<pre  style="background-color:#f1f1f1">
+
+ test {
+    include '**my.package.name/*'
+ }
+
+</pre>
+<p>Skip excluded tests &minus;</p>
+<pre  style="background-color:#f1f1f1">
+
+test {
+    exclude '**my.package.name/*'
+ }
+
+</pre>
+<p>The sample <b>build.gradle</b> file as shown in the following code shows different configuration options.</p>
+<pre  style="background-color:#f1f1f1">
+
+ apply plugin: 'java' // adds 'test' task
+
+ test {
+    // enable TestNG support (default is JUnit)
+    useTestNG()
+ 
+    // set a system property for the test JVM(s)
+    systemProperty 'some.prop', 'value'
+ 
+    // explicitly include or exclude tests
+    include 'org/foo/**'
+    exclude 'org/boo/**'
+ 
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+
+    // set heap size for the test JVM(s)
+    minHeapSize = "128m"
+    maxHeapSize = "512m"
+
+    // set JVM arguments for the test JVM(s)
+    jvmArgs '-XX:MaxPermSize=256m'
+   
+    // listen to events in the test execution lifecycle
+    beforeTest { 
+       descriptor &rarr; logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // listen to standard out and standard error of the test JVM(s)
+    onOutput { 
+       descriptor, event &rarr; logger.lifecycle
+          ("Test: " + descriptor + " produced standard out/err: " 
+          + event.message )
+    }
+ }
+
+</pre>
+<p>You can use the following command syntax to execute some test task.</p>
+<pre style="background-color:#f1f1f1">
+ 
+ gradle &lt;someTestTask&gt; --debug-jvm
+
+</pre>
+<hr />
+</body>
+</html>

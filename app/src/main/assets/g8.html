@@ -1,0 +1,148 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Build a JAVA Project</h3>
+<p>This chapter explains how to build a Java project using Gradle build file. First, we have to add Java plugin to the build script because it provides tasks to compile Java source code, run unit tests, create Javadoc and create a JAR file. Use the following line in <b>build.gradle</b> file.</p>
+<prestyle="background-color:#f1f1f1">
+	
+	apply plugin: 'java'
+
+</pre>
+<h4>Java Default Project Layout</h4>
+<p>Whenever you add a plugin to your build, it assume a certain setup of Java project (similar to Maven). Take a look at the following directory structure.</p>
+<ul>
+<li>src/main/java contains the Java source code</li>
+<li>src/test/java contains the Java tests</li>
+</ul>
+<p>If you follow this setup, the following build file is sufficient to compile, test, and bundle a Java project.</p>
+<p>To start the build, type the following command on the command line.</p>
+<prestyle="background-color:#f1f1f1">
+ 
+ C:\> gradle build
+ 
+</pre>
+<p><b>SourceSets</b> can be used to specify a different project structure. For example, the sources are stored in a <b>src</b> folder rather than in <b>src/main/java</b>. Take a look at the following directory structure.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'java'
+ sourceSets {
+    main {
+       java {
+          srcDir 'src'
+       }
+    }
+	
+    test {
+       java {
+          srcDir 'test'
+       }
+    }
+ }
+
+</pre>
+<h4>init Task Execution</h4>
+<p>Gradle does not yet support multiple project templates. But it offers an <b>init</b> task to create the structure of a new Gradle project. Without additional parameters, this task creates a Gradle project, which contains the gradle wrapper files, a <b>build.gradle</b> and <b>settings.gradle</b> file.</p>
+<p>When adding the <b>--type</b> parameter with <b>java-library</b> as value, a java project structure is created and the <b>build.gradle</b> file contains a certain Java template with Junit. Take a look at the following code for <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'java'
+
+ repositories {
+    jcenter()
+ }
+
+ dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    testCompile 'junit:junit:4.12'
+ }
+ 
+</pre>
+<p>In the repositories section, it defines where to find the dependencies. <b>Jcenter</b> is for resolving your dependencies. Dependencies section is for providing information about external dependencies.</p>
+<h4>Specifying Java Version</h4>
+<p>Usually, a Java project has a version and a target JRE on which it is compiled. The <b>version</b> and <b>sourceCompatibility</b> property can be set in the <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+ 
+ version = 0.1.0
+ sourceCompatibility = 1.8
+
+</pre>
+<p>If the artifact is an executable Java application, the <b>MANIFEST.MF</b> file must be aware of the class with the main method.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'java'
+
+ jar {
+    manifest {
+       attributes 'Main-Class': 'com.example.main.Application'
+    }
+ }
+
+</pre>
+<p>Let us consider an example. Create a directory structure as shown in the following screenshot.</p>
+<img   width="100%" src="imgg/directory_structure.jpg.png" alt="Directory Structure" />
+<p>Copy the following Java code into App.java file and store it into <b>consumerbanking\src\main\java\com\bank</b> directory.</p>
+<pre style="background-color:#f1f1f1">
+
+ package com.bank;
+
+ /**
+ * Hello world!
+ *
+ */
+
+ public class App {
+    public static void main( String[] args ){
+       System.out.println( "Hello World!" );
+    }
+ }
+ 
+</pre>
+<p>Copy the following Java code into AppTset.java file and store into <b>consumerbanking\src\test\java\com\bank</b> directory.</p>
+<pre style="background-color:#f1f1f1">
+
+ package com.bank;
+
+ /**
+ * Hello world!
+ *
+ */
+
+ public class App{
+    public static void main( String[] args ){
+       System.out.println( "Hello World!" );
+    }
+ }
+
+</pre>
+<p>Copy the following code into build.gradle file and placed into <b>consumerbanking\</b> directory.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'java'
+
+ repositories {
+    jcenter()
+ }
+
+ dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    testCompile 'junit:junit:4.12'
+ }
+
+ jar {
+    manifest {
+       attributes 'Main-Class': 'com.example.main.Application'
+    }
+ }
+
+</pre>
+<p>To compile and execute the above script use the following commands.</p>
+<pre style="background-color:#f1f1f1">
+
+ consumerbanking\> gradle tasks
+ consumerbanking\> gradle assemble
+ consumerbanking\> gradle build
+
+</pre>
+<p>Check all the class files in the respective directories and check <b>consumerbanking\build\lib</b> folder for <b>consumerbanking.jar</b> file.</p>
+<hr />
+</body>
+</html>

@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+		<item name="android:windowExitTransition">@transition/main_exit</item>
+		<item name="android:windowReenterTransition">@transition/main_reenter</item>
+		<item name="android:windowEnterTransition">@transition/activity_enter</item>
+
+    </style>
+    
+    <style name="SettingsTheme" parent="AppTheme">
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+	<item name="android:windowAllowEnterTransitionOverlap">true</item>
+	<item name="android:windowEnterTransition">@transition/activity_enter</item>
+    </style>
+    
+    <style name="AppbarTheme" parent="ThemeOverlay.AppCompat.Light">
+	</style>
+
+</resources>

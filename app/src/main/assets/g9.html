@@ -1,0 +1,41 @@
+<html>
+<body>
+<h3 style="background-color:#032f3c;color:#FFFFFF;text-align:center;">Build a Groovy Project</h3>
+<p>This chapter explains how to compile and execute a Groovy project using <b>build.gradle</b> file.</p>
+<h4>The Groovy Plug-in</h4>
+<p>The Groovy plug-in for Gradle extends the Java plug-in and provides tasks for Groovy programs. You can use the following line for applying groovy plugin.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'groovy'
+
+</pre>
+<p>The complete build script file is as follows. Copy the following code into <b>build.gradle</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+ apply plugin: 'groovy'
+
+ repositories {
+    mavenCentral()
+ }  
+
+ dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.5'
+    testCompile 'junit:junit:4.12'
+ }
+</pre>
+<p>You can use the following command to execute the build script.</p>
+<pre style="background-color:#f1f1f1">
+ gradle build
+</pre>
+<h4>Default Project Layout of Groovy Projects</h4>
+<p>The Groovy plugin assumes a certain setup of your Groovy project.</p>
+<ul>
+<li>src/main/groovy contains the Groovy source code</li>
+<li>src/test/groovy contains the Groovy tests</li>
+<li>src/main/java contains the Java source code</li>
+<li>src/test/java contains the Java tests</li>
+</ul>
+<p>Check the respective directory from the build folder where <b>build.gradle</b> file is placed.</p>
+<hr />
+</body>
+</html>

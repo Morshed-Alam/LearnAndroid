@@ -1,0 +1,127 @@
+<html>
+
+<body>
+<h3 style="background-color:#032f3c	;color:#FFFFFF;text-align:center;">Installation</h3>
+<p>Gradle is a build tool, based on Java. There are some prerequisites that needs to be installed before installing the Gradle framework.</p>
+<h4>Prerequisites</h4>
+<p>JDK and Groovy are the prerequisites for Gradle installation.</p>
+<ul>
+<li><p>Gradle requires JDK version 6 or later to be installed in your system. It uses the JDK libraries which is installed and sets to the JAVA_HOME environmental variable.</p></li>
+<li><p>Gradle carries its own Groovy library, therefore, we do no need to install Groovy explicitly. If it is installed, that is ignored by Gradle.</p></li>
+</ul>
+<p>Following are the steps to install Gradle in your system.</p>
+<h4>Step 1 &minus; Verify JAVA Installation</h4>
+<p>First of all, you need to have Java Software Development Kit (SDK) installed on your system. To verify this, execute <b>Java –version</b> command in any of the platform you are working on.</p>
+<h4>In Windows &minus;</h4>
+<p>Execute the following command to verify Java installation. I have installed JDK 1.8 in my system.</p>
+<pre style="background-color:#f1f1f1">
+
+  C:\> java - version
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+  java version "1.8.0_66"
+  Java(TM) SE Runtime Environment (build 1.8.0_66-b18)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.66-b18, mixed mode)
+
+</pre>
+<h4>In Linux &minus;</h4>
+<p>Execute the following command to verify Java installation. I have installed JDK 1.8 in my system.</p>
+<pre style="background-color:#f1f1f1">
+
+  $ java - version
+
+</pre>
+<p>If the command is executed successfully, you will get the following output.</p>
+<pre style="background-color:#f1f1f1">
+
+  java version "1.8.0_66"
+  Java(TM) SE Runtime Environment (build 1.8.0_66-b18)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.66-b18, mixed mode)
+
+</pre>
+<p>We assume the readers of this tutorial have Java SDK version 1.8.0_66 installed on their system.</p>
+<h4>Step 2 &minus; Download Gradle Build File</h4>
+<p>Download the latest version of Gradle from the <a href="http://gradle.org/gradle-download/" rel="nofollow" target="_blank">Download Gradle</a> link. In the reference page, click on the <b>Complete Distribution</b> link. This step is common for any platform. For this you will get the complete distribution file into your Downloads folder.</p>
+<h4>Step 3 &minus; Set Up Environment for Gradle</h4>
+<p>Setting up the environment means we have to extract the distribution file and copy the library files into proper location. Setting up <b>GRADLE_HOME</b> and <b>PATH</b> environmental variables.</p>
+<p>This step is platform dependent.</p>
+<h4>In Windows &minus;</h4>
+<p>Extract the downloaded zip file named <b>gradle-2.11-all.zip</b> and copy the distribution files from <b>Downloads\gradle-2.11\</b> to <b>C:\gradle\</b> location.</p>
+<p>Later, add the <b>C:\gradle</b> and <b>C:\gradle\bin</b> directories to the <b>GRADLE_HOME</b> and <b>PATH</b> system variables. Right-click on My Computer &rarr; Click properties &rarr; Advanced system settings &rarr; Environment variables. There you will find a dialog box for creating and editing system variables. Click ‘New’ button for creating GRADLE_HOME variable (follow the left side screenshot). Click ‘Edit’ for editing the existing Path system variable (follow the right side screenshot). The process is shown in the following screenshots.</p>
+<img src="imgg/setup_environment_for_gradle.jpg" width="100%" alt="Setup Environment for Gradle" />
+<h4>In Linux &minus;</h4>
+<p>Extract the downloaded zip file named <b>gradle-2.11-all.zip</b> then you will find an extracted file named <b>gradle-2.11</b>.</p>
+<p>You can use the following to move the distribution files from <b>Downloads/gradle-2.11/</b> to <b>/opt/gradle/</b> location. Execute this operation from the Downloads directory.</p>
+<pre style="background-color:#f1f1f1">
+
+  $ sudo mv gradle-2.11 /opt/gradle
+
+</pre>
+<p>Edit the ~/.bashrc file and paste the following content to it and save it.</p>
+<pre style="background-color:#f1f1f1">
+
+  export ORIENT_HOME = /opt/gradle
+export PATH = $PATH:
+
+</pre>
+<p>Execute the following command to execute <b>~/.bashrc</b> file.</p>
+<pre style="background-color:#f1f1f1">
+
+$ source ~/.bashrc
+
+</pre>
+<h4>Step 4 &minus; Verify the Gradle Installation</h4>
+<h4>In Windows &minus;</h4>
+<p>You can execute the following command in command prompt.</p>
+<pre style="background-color:#f1f1f1">
+
+C:\> gradle –v
+
+</pre>
+<p><b>Output</b> &minus; You will find the Gradle version.</p>
+<pre style="background-color:#f1f1f1">
+
+------------------------------------------------------------
+Gradle 2.11
+------------------------------------------------------------
+
+Build time: 2016-02-08 07:59:16 UTC
+Build number: none
+Revision: 584db1c7c90bdd1de1d1c4c51271c665bfcba978
+
+Groovy: 2.4.4
+Ant: Apache Ant(TM) version 1.9.3 compiled on December 23 2013
+JVM: 1.7.0_60 (Oracle Corporation 24.60-b09)
+OS: Windows 8.1 6.3 amd64
+
+</pre>
+<h4>In Linux &minus;</h4>
+<p>You can execute the following command in terminal.</p>
+<pre style="background-color:#f1f1f1">
+
+$ gradle –v
+
+</pre>
+<p><b>Output</b> &minus; You will find the Gradle version.</p>
+<pre style="background-color:#f1f1f1">
+
+------------------------------------------------------------
+Gradle 2.11
+------------------------------------------------------------
+
+Build time: 2016-02-08 07:59:16 UTC
+Build number: none
+Revision: 584db1c7c90bdd1de1d1c4c51271c665bfcba978
+
+Groovy: 2.4.4
+Ant: Apache Ant(TM) version 1.9.3 compiled on December 23 2013
+JVM: 1.7.0_60 (Oracle Corporation 24.60-b09)
+OS: Linux 3.13.0-74-generic amd64
+
+</pre>
+<hr />
+</body>
+</html>
